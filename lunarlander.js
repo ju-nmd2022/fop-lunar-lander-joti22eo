@@ -136,18 +136,20 @@ function menuScreen() {
   fill(0, 0, 0);
   textSize(34);
   textStyle(BOLD);
-  text("CLICK TO START GAME", width / 2, 300);
+  text("CLICK TO START GAME", 210, 250);
+  textSize(24);
+  text("Use the spacebar to slow down the speed", 162, 300);
 }
 function gameOverScreen() {
   scenery();
   fill(0, 0, 0);
-  text("GAME OVER", width / 2, 300);
+  text("GAME OVER", 330, 250);
 }
 
 function youWinScreen() {
   scenery();
   fill(0, 0, 0);
-  text("YOU WIN", width / 2, 300);
+  text("YOU WIN", 340, 250);
 }
 
 function mouseClicked() {
@@ -160,7 +162,7 @@ function mouseClicked() {
 }
 
 let ufoY = -60;
-let velocity = 1;
+let velocity = 1.5;
 let acceleration = 0.2;
 let screen = 0;
 
@@ -172,9 +174,8 @@ function gameScreen() {
 
   if (keyIsDown(32)) {
     velocity = velocity - 0.2;
-    /* velocity = velocity + acceleration; */
   } else {
-    velocity += 0.1;
+    velocity += 0.2;
   }
   console.log(velocity);
 
@@ -188,7 +189,7 @@ function gameScreen() {
   }
 }
 
-// The  following 11 lines of code were taken from https://www.youtube.com/watch?v=RlsRQS5qFSY&list=LL&index=2 2023-02-12.
+// The  following 11 lines of code was adapted from https://www.youtube.com/watch?v=RlsRQS5qFSY&list=LL&index=2 Accessed: 2023-02-12
 function draw() {
   if (screen === 0) {
     menuScreen();
@@ -200,8 +201,3 @@ function draw() {
     youWinScreen();
   }
 }
-
-/* function startGame() { */
-/*   screen = 1; */
-/* } */
-/*  */
