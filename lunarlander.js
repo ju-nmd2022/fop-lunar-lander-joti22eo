@@ -1,3 +1,4 @@
+// Ufo
 function ufo(x, y) {
   strokeWeight(4);
 
@@ -72,6 +73,7 @@ function sun(x, y) {
   pop();
 }
 
+// Scenery
 function scenery() {
   push();
   noStroke();
@@ -88,38 +90,118 @@ function scenery() {
   rect(0, 300, width, 120);
 
   // Sun
-  sun(400, 350);
+  sun(400, 410);
 
-  // The moon surface
+  // Earth landing surface
   fill(105, 23, 98);
-  rect(0, 400, width, 200);
-  // "Surface holes"
-  ellipse(100, 430, 140, 90);
-  ellipse(600, 420, 140, 60);
-  ellipse(700, 405, 60, 20);
-
-  // Shade
-  beginShape();
-  fill(94, 22, 87);
-  vertex(210, 520);
-  bezierVertex(160, 580, 280, 560, 270, 520);
-  endShape();
-
-  // "Light shade"
-  fill(166, 78, 158);
-  ellipse(606, 408, 80, 20);
-  ellipse(97, 405, 80, 20);
-  ellipse(239, 524, 60, 20);
-
-  // "Dark shade"
-  fill(85, 20, 79);
-  ellipse(602, 405, 80, 20);
-  ellipse(100, 402, 80, 20);
-  ellipse(240, 524, 50, 18);
+  rect(0, 460, width, height);
   pop();
 }
 
-function draw() {
+// Screens
+// The  following 38 lines of code were taken from https://www.youtube.com/watch?v=RlsRQS5qFSY&list=LL&index=2 2023-02-12.
+/* var screen = 0; */
+/* let ufoX = 100; */
+/* let ufoY = 100; */
+/* let velocity = -1; */
+/* let acceleration = -0.01; */
+/*  */
+/* function menuScreen() { */
+/*   scenery(); */
+/*   textFont(); */
+/*   textSize(40); */
+/*   textAlign(CENTER); */
+/*   text("CLICK TO PLAY", 400, 300); */
+/* } */
+/*  */
+/* function gameScreen() { */
+/*   scenery(); */
+/*   ufo(ufoX, ufoY); */
+/*  */
+/*   if (keyIsDown(40)) { */
+/*     ufoY = ufoY + 10; */
+/*   } */
+/*  */
+/*   ufoX = ufoX + 0.5; */
+/*   ufoY = ufoY + velocity; */
+/*   velocity = velocity + acceleration; */
+/*  */
+/*   if (ufoY > 460) { */
+/*     gameOverScreen(); */
+/*   } */
+
+// Screens
+function menuScreen() {
   scenery();
-  ufo(100, 100);
+  fill(0, 0, 0);
+  textSize(34);
+  textStyle(BOLD);
+  text("CLICK TO START GAME", width / 2, 300);
 }
+function gameOverScreen() {
+  scenery();
+  fill(0, 0, 0);
+  text("GAME OVER", width / 2, 300);
+}
+
+function youWinScreen() {
+  scenery();
+  fill(0, 0, 0);
+  text("YOU WIN", width / 2, 300);
+}
+
+function mouseClicked() {
+  if (screen === 0 || screen == 3 || screen == 2) {
+    console.log("Mouse clicked");
+    ufoY = -60;
+    velocity = 1;
+    screen = 1;
+  }
+}
+
+let ufoY = -60;
+let velocity = 1;
+let acceleration = 0.2;
+let screen = 0;
+
+function gameScreen() {
+  scenery();
+  ufo(400, ufoY);
+
+  ufoY = ufoY + velocity;
+
+  if (keyIsDown(32)) {
+    velocity = velocity - 0.2;
+    /* velocity = velocity + acceleration; */
+  } else {
+    velocity += 0.1;
+  }
+  console.log(velocity);
+
+  if (ufoY > 410) {
+    if (velocity > 2) {
+      screen = 2; // Game over
+    }
+    if (velocity < 2) {
+      screen = 3; // You win
+    }
+  }
+}
+
+// The  following 11 lines of code were taken from https://www.youtube.com/watch?v=RlsRQS5qFSY&list=LL&index=2 2023-02-12.
+function draw() {
+  if (screen === 0) {
+    menuScreen();
+  } else if (screen === 1) {
+    gameScreen();
+  } else if (screen === 2) {
+    gameOverScreen();
+  } else if (screen === 3) {
+    youWinScreen();
+  }
+}
+
+/* function startGame() { */
+/*   screen = 1; */
+/* } */
+/*  */
