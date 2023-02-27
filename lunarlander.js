@@ -2,6 +2,18 @@
 function ufo(x, y) {
   strokeWeight(4);
 
+  // Flames
+  push();
+  noStroke();
+  // The following 4 lines of code were taken from https://www.youtube.com/watch?v=cl5FW_zgY_Q Accessed: 2023-02-27
+  fill(77, 0, 145, 140);
+  ellipse(x, y + random(35, 55), 40, 60);
+  fill(156, 43, 255, 140);
+  ellipse(x, y + random(35, 50), 32, 40);
+  fill(255, 255, 255, 140);
+  ellipse(x, y - 10 + random(35, 50), 22, 40);
+  pop();
+
   // Top antenna
   fill(252, 247, 146);
   line(x, y - 50, x, y - 30);
@@ -131,6 +143,7 @@ function scenery() {
 /*   } */
 
 // Screens
+// Menu screen
 function menuScreen() {
   scenery();
   fill(0, 0, 0);
@@ -140,21 +153,26 @@ function menuScreen() {
   textSize(24);
   text("Use the spacebar to slow down the speed", 162, 300);
 }
+
+// Game over screen
 function gameOverScreen() {
   scenery();
   fill(0, 0, 0);
   text("GAME OVER", 330, 250);
 }
 
+// You win screen
 function youWinScreen() {
   scenery();
   fill(0, 0, 0);
-  text("YOU WIN", 340, 250);
+  text("YOU WIN", 355, 250);
 }
 
+// Restarts the game when mouse is clicked
 function mouseClicked() {
   if (screen === 0 || screen == 3 || screen == 2) {
     console.log("Mouse clicked");
+    // Restarts the game
     ufoY = -60;
     velocity = 1;
     screen = 1;
@@ -179,6 +197,7 @@ function gameScreen() {
   }
   console.log(velocity);
 
+  // Stops on the ground, gives result depending on velocity
   if (ufoY > 410) {
     if (velocity > 2) {
       screen = 2; // Game over
