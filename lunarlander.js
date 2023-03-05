@@ -2,18 +2,6 @@
 function ufo(x, y) {
   strokeWeight(4);
 
-  // Flames
-  push();
-  noStroke();
-  // The following 4 lines of code were taken from https://www.youtube.com/watch?v=cl5FW_zgY_Q Accessed: 2023-02-27
-  fill(77, 0, 145, 140);
-  ellipse(x, y + random(35, 55), 40, 60);
-  fill(156, 43, 255, 140);
-  ellipse(x, y + random(35, 50), 32, 40);
-  fill(255, 255, 255, 140);
-  ellipse(x, y - 10 + random(35, 50), 22, 40);
-  pop();
-
   // Top antenna
   fill(252, 247, 146);
   line(x, y - 50, x, y - 30);
@@ -69,6 +57,20 @@ function ufo(x, y) {
   bezierVertex(x - 30, y - 20, x, y - 60, x + 40, y);
   bezierVertex(x + 40, y + 10, x - 10, y + 30, x - 40, y);
   endShape();
+}
+
+function flames(x, y) {
+  // Flames
+  push();
+  noStroke();
+  // The following 4 lines of code were taken from https://www.youtube.com/watch?v=cl5FW_zgY_Q Accessed: 2023-02-27
+  fill(77, 0, 145, 140);
+  ellipse(x, y + random(35, 55), 40, 60);
+  fill(156, 43, 255, 140);
+  ellipse(x, y + random(35, 50), 32, 40);
+  fill(255, 255, 255, 140);
+  ellipse(x, y - 10 + random(35, 50), 22, 40);
+  pop();
 }
 
 function sun(x, y) {
@@ -186,13 +188,17 @@ let screen = 0;
 
 function gameScreen() {
   scenery();
-  ufo(400, ufoY);
+  /* ufo(400, ufoY); */
 
   ufoY = ufoY + velocity;
 
+  // When spacebar is down, velocity slows down, otherwise increases
   if (keyIsDown(32)) {
+    flames(400, ufoY);
+    ufo(400, ufoY);
     velocity = velocity - 0.2;
   } else {
+    ufo(400, ufoY);
     velocity += 0.2;
   }
   console.log(velocity);
