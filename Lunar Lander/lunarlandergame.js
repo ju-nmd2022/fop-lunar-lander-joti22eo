@@ -1,3 +1,13 @@
+// Setup and styling for the HTML
+function setup() {
+  // The following 4 lines of code were taken from https://github.com/processing/p5.js/wiki/Positioning-your-canvas Accessed: 2023-03-07
+  const canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent("sketch-holder");
+  canvas.style("display", "block");
+  createCanvas(windowWidth, windowHeight);
+  frameRate(30);
+}
+
 // Ufo
 function ufo(x, y) {
   strokeWeight(4);
@@ -86,35 +96,35 @@ function crashedUfo(x, y) {
 
   // Left leg
   push();
-  translate(x - 130, y + 40);
+  translate(x - 160, y + 10);
   rotate(1.3);
   rect(0, 0, 6, 24);
   pop();
 
   // Left dot leg
   push();
-  translate(x - 110, y + 54);
+  translate(x - 200, y + 84);
   rotate(0.9);
   ellipse(0, 0, 12, 6);
   pop();
 
   // Right Leg
   push();
-  translate(x + 106, y + 3);
+  translate(x + 96, y - 40);
   rotate(-0.5);
   rect(0, 0, 6, 24);
   pop();
 
   // Right dot leg
   push();
-  translate(x + 150, y + 48);
+  translate(x + 160, y + 88);
   rotate(-0.9);
   ellipse(0, 0, 12, 6);
   pop();
 
   // Bottom
   push();
-  translate(x + 30, y + 23);
+  translate(x + 180, y + 15);
   rotate(-0.5);
   fill(182, 182, 182);
   ellipse(0, 0, 85, 40);
@@ -122,7 +132,7 @@ function crashedUfo(x, y) {
 
   // Middle
   push();
-  translate(x - 100, y - 50);
+  translate(x - 100, y - 70);
   rotate(-9);
   fill(252, 247, 146);
   ellipse(0, 0, 130, 50);
@@ -130,6 +140,7 @@ function crashedUfo(x, y) {
 
   // Top
   push();
+  translate(x - 800, x - 760);
   beginShape();
   fill(213, 218, 255, 180);
   vertex(x - 40, y);
@@ -172,7 +183,7 @@ function scenery() {
   rect(0, 300, width, 120);
 
   // Sun
-  sun(400, 410);
+  sun(800, 410);
 
   // Earth landing surface
   fill(105, 23, 98);
@@ -185,11 +196,11 @@ function scenery() {
 function menuScreen() {
   scenery();
   fill(0, 0, 0);
-  textSize(34);
+  textSize(38);
   textStyle(BOLD);
-  text("CLICK TO START GAME", 210, 250);
+  text("CLICK TO START GAME", 586, 250);
   textSize(24);
-  text("Use the spacebar to slow down the speed", 162, 300);
+  text("Use the spacebar to slow down the speed", 565, 300);
 }
 
 // Game over screen
@@ -199,16 +210,17 @@ let crashActive = true;
 
 function gameOverScreen() {
   scenery();
-  crashedUfo(400, crashedY);
+  crashedUfo(800, crashedY);
   fill(0, 0, 0);
-  text("GAME OVER", 330, 250);
+  textSize(38);
+  text("GAME OVER", 682, 250);
   textSize(24);
-  text("Click to restart the game", 264, 300);
+  text("Click to restart the game", 654, 300);
 
   if (crashActive) {
     crashedY = crashedY - speed;
   }
-  if (crashedY <= 150) {
+  if (crashedY <= 230) {
     crashActive = false;
   }
 }
@@ -216,11 +228,12 @@ function gameOverScreen() {
 // You win screen
 function youWinScreen() {
   scenery();
-  ufo(400, 410);
+  ufo(800, 410);
   fill(0, 0, 0);
-  text("YOU WIN", 348, 250);
+  textSize(38);
+  text("YOU WIN", 712, 250);
   textSize(24);
-  text("Click to restart the game", 264, 300);
+  text("Click to restart the game", 654, 300);
 }
 
 // Restarts the game when mouse is clicked
@@ -248,16 +261,16 @@ function gameScreen() {
 
   // When spacebar is down, velocity slows down, otherwise increases
   if (keyIsDown(32)) {
-    flames(400, ufoY);
-    ufo(400, ufoY);
+    flames(800, ufoY);
+    ufo(800, ufoY);
     velocity = velocity - 0.2;
   } else {
-    ufo(400, ufoY);
+    ufo(800, ufoY);
     velocity += 0.2;
   }
   console.log(velocity);
 
-  // Stops on the ground, gives result depending on velocity
+  // Gives a result, changes screen depending on velocity
   if (ufoY > 410) {
     if (velocity > 2) {
       screen = 2; // Game over

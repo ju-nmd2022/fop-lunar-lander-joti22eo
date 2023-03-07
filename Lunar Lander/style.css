@@ -1,0 +1,12 @@
+/* The following 11 lines of code were taken from https://github.com/processing/p5.js/wiki/Positioning-your-canvas Accessed: 2023-03-07 */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
