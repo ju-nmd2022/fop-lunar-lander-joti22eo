@@ -73,6 +73,75 @@ function flames(x, y) {
   pop();
 }
 
+function crashedUfo(x, y) {
+  strokeWeight(4);
+
+  // Top antenna
+  fill(252, 247, 146);
+  line(x, y - 50, x, y - 30);
+  ellipse(x, y - 50, 10);
+
+  // "Legs"
+  fill(182, 182, 182);
+
+  // Left leg
+  push();
+  translate(x - 130, y + 40);
+  rotate(1.3);
+  rect(0, 0, 6, 24);
+  pop();
+
+  // Left dot leg
+  push();
+  translate(x - 110, y + 54);
+  rotate(0.9);
+  ellipse(0, 0, 12, 6);
+  pop();
+
+  // Right Leg
+  push();
+  translate(x + 106, y + 3);
+  rotate(-0.5);
+  rect(0, 0, 6, 24);
+  pop();
+
+  // Right dot leg
+  push();
+  translate(x + 150, y + 48);
+  rotate(-0.9);
+  ellipse(0, 0, 12, 6);
+  pop();
+
+  // Bottom
+  push();
+  translate(x + 30, y + 23);
+  rotate(-0.5);
+  fill(182, 182, 182);
+  ellipse(0, 0, 85, 40);
+  pop();
+
+  // Middle
+  push();
+  translate(x - 100, y - 50);
+  rotate(-9);
+  fill(252, 247, 146);
+  ellipse(0, 0, 130, 50);
+  pop();
+
+  // Top
+  push();
+  /* translate(x - 80, y - 10); */
+  beginShape();
+  /* ellipse(x, y + 2, 80, 20); */
+  fill(213, 218, 255, 180);
+  vertex(x - 40, y);
+  bezierVertex(x - 30, y - 20, x, y - 60, x + 40, y);
+  bezierVertex(x + 40, y + 10, x - 10, y + 30, x - 40, y);
+  rotate(6.42);
+  endShape();
+  pop();
+}
+
 function sun(x, y) {
   push();
   noStroke();
@@ -156,18 +225,29 @@ function menuScreen() {
   text("Use the spacebar to slow down the speed", 162, 300);
 }
 
+let crashedY = 410;
+let speed = 14;
+let crashActive = true;
 // Game over screen
 function gameOverScreen() {
   scenery();
+  crashedUfo(400, crashedY);
   fill(0, 0, 0);
   text("GAME OVER", 330, 250);
+
+  if (crashActive) {
+    crashedY = crashedY - speed;
+  }
+  if (crashedY <= 250) {
+    crashActive = false;
+  }
 }
 
 // You win screen
 function youWinScreen() {
   scenery();
   fill(0, 0, 0);
-  text("YOU WIN", 355, 250);
+  text("YOU WIN", 348, 250);
 }
 
 // Restarts the game when mouse is clicked
